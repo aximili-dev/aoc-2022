@@ -6,5 +6,7 @@
   :license  "Specify license here"
   :version "0.0.1"
   :serial t
+  :depends-on (:cl-ppcre)
   :components ((:file "package")
-               (:file "aoc-2022")))
+               (:file "aoc-2022")
+	       (:file "day-01")))
