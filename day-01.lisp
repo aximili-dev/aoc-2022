@@ -21,15 +21,12 @@
     (let ((current-counter 0)
 	  (top-3 '()))
       (loop for line = (read-line input nil)
-	    do (format t "Read: ~a~%" line)
 	    do (if (or (string= line "") (eq line nil))
 		   (progn
-		     (format t "Computed sum: ~a~%" current-counter)
 		     (setf top-3 (insert-sorted current-counter top-3))
 		     (setf current-counter 0))
 		   (incf current-counter (parse-integer line)))
 	    while line)
-      (format t "All calories: ~a~%" top-3)
       (format t "Sum of top 3 max calories: ~a~%"
 	      (+ (first top-3)
 		 (second top-3)
