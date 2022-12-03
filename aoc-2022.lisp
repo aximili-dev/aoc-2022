@@ -11,3 +11,9 @@
 
 (defmacro register-solution (day puzzle fun-name)
   `(push (cons (cons ,day ,puzzle) (function ,fun-name)) *solutions*)) 
+
+(defun insert-sorted (item list)
+  (if (or (null list) (> item (first list)))
+      (push item list)
+      (cons (first list)
+	    (insert-sorted item (rest list)))))
