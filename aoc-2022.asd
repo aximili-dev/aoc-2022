@@ -9,4 +9,5 @@
   :depends-on (:cl-ppcre)
   :components ((:file "package")
                (:file "aoc-2022")
-	       (:file "day-01")))
+	       (:file "day-01")
+	       (:file "day-02")))
