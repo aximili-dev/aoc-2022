@@ -29,8 +29,7 @@
 (defmacro for-input-lines ((line input-file) &body body)
   `(with-open-file (input ,input-file)
      (loop for ,line = (read-line input nil)
-	   do (progn ,@body)
-	   while ,line)))
+	   while ,line do (progn ,@body))))
 
 (defun string-bitset (str bit-fun)
   (let ((set 0))
@@ -39,3 +38,8 @@
 	    (let ((bit-pos (funcall bit-fun char)))
 	      (setf (ldb (byte 1 bit-pos) set) 1)))
     set))
+
+(defun iterate-bits-of (x handler)
+  (unless (zerop x)
+    (funcall handler (logand x 1))
+    (iterate-bits-of (ash x -1) handler)))
