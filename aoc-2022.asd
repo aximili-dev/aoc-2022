@@ -10,4 +10,5 @@
   :components ((:file "package")
                (:file "aoc-2022")
 	       (:file "day-01")
-	       (:file "day-02")))
+	       (:file "day-02")
+	       (:file "day-03")))
