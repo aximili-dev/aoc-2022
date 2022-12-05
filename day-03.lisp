@@ -7,13 +7,22 @@
     (for-input-lines (line input-file)
       (if (and line (not (string= line "")))
 	  (multiple-value-bind (h1 h2) (halve-line line)
-	    (let* ((union (logand (items-bitset h1)
-				  (items-bitset h2)))
-		   (priority (round (log union 2))))
-	      ;;;(format t "~a ^ ~a: ~64,'0,' ,8b~%" h1 h2 union)
-	      (format t "~b~%" union)
-	      (incf priority-sum priority)))))
+	    (incf priority-sum (shared-item-priority h1 h2)))))
     (format t "Priority sum: ~a~%" priority-sum)))
+
+(defsolution (input-file) 3 2
+  (let ((priority-sum 0)
+	(lines '()))
+    (for-input-lines (line input-file)
+      (if (and line (not (string= line "")))
+	  (push line lines))
+
+      (when (eq (length lines) 3)
+	(incf priority-sum (apply #'shared-item-priority lines))
+	(setf lines '())))
+
+    (format t "Priority sum: ~a~%" priority-sum)))
+	
       
 (defun halve-line (line)
   (let* ((len (length line))
@@ -35,3 +44,8 @@
     (if (upper-case-p char)
 	(+ 27 (- code up-a))
 	(+ 1  (- code lo-a)))))
+
+(defun shared-item-priority (&rest item-lists)
+  (let ((union (apply #'logand
+		      (mapcar #'items-bitset item-lists))))
+    (round (log union 2))))
