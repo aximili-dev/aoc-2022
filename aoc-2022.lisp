@@ -31,3 +31,11 @@
      (loop for ,line = (read-line input nil)
 	   do (progn ,@body)
 	   while ,line)))
+
+(defun string-bitset (str bit-fun)
+  (let ((set 0))
+    (loop for char across str
+	  while char do
+	    (let ((bit-pos (funcall bit-fun char)))
+	      (setf (ldb (byte 1 bit-pos) set) 1)))
+    set))

@@ -31,11 +31,7 @@
 		       (subseq line half len)))))
 
 (defun items-bitset (items)
-  (let ((set 0))
-    (loop for char across items
-	  while char do (let ((priority (item-priority char)))
-			  (setf (ldb (byte 1 priority) set) 1)))
-    set))
+  (string-bitset items #'item-priority))
 
 (defun item-priority (char)
   (let ((code (char-code char))
