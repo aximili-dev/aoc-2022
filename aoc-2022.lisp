@@ -43,3 +43,10 @@
   (unless (zerop x)
     (funcall handler (logand x 1))
     (iterate-bits-of (ash x -1) handler)))
+
+(defun ith (predicate list &optional (depth 0))
+  (cond
+    ((null list) nil)
+    ((funcall predicate (car list)) depth)
+    (t (ith predicate (1+ depth)))))
+  
